@@ -58,6 +58,43 @@ def create_short_url():
     
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+    
+
+# Retrieve original URL
+@app.route('/shorten/<short_code>', methods=['GET'])
+def get_original_url(short_code):
+    record = db.urls.find_one({'short_code': short_code})
+    if not record:
+        return jsonify({'error': 'Short URL not found'}), 404
+    
+    # Increment access count
+    db.urls.update_one(
+        {'short_code': short_code},
+        {'$inc': {'access_count': 1}}
+    )
+    return redirect(record['original_url'])
+
+@app.route('/shorten/<short_code>', methods=['PUT'])
+def update_short_url(short_code):
+    try:
+        data = request.get_json()
+        new_url = data.get('url')
+        if not new_url:
+            return jsonify({'error': 'Invalid URL'}), 400
+
+        # Try updating the record
+        result = db.urls.update_one(
+            {'short_code': short_code},
+            {'$set': {'original_url': new_url, 'updated_at': datetime.utcnow()}}
+        )
+        if result.matched_count == 0:
+            return jsonify({'error': 'Short URL not found'}), 404
+        
+        return jsonify({'message': 'URL updated successfully'}), 200
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
 
 
 
