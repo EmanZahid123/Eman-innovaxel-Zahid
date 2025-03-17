@@ -111,12 +111,13 @@ def get_url_stats(short_code):
         return jsonify({'error': 'Short URL not found'}), 404
     
     stats = {
-        'short_code': record['short_code'],
-        'original_url': record['original_url'],
-        'created_at': record['created_at'],
-        'updated_at': record['updated_at'],
-        'access_count': record['access_count']
-    }
+    'short_code': record['short_code'],
+    'original_url': record['original_url'],
+    'created_at': record['created_at'].strftime('%Y-%m-%d %H:%M:%S') if record['created_at'] else None,
+    'updated_at': record['updated_at'].strftime('%Y-%m-%d %H:%M:%S') if record['updated_at'] else None,
+    'access_count': record['access_count']
+}
+
     return jsonify(stats), 200
 
 
