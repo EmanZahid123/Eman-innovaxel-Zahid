@@ -104,6 +104,21 @@ def delete_short_url(short_code):
     return '', 204
 
 
+@app.route('/shorten/<short_code>/stats', methods=['GET'])
+def get_url_stats(short_code):
+    record = db.urls.find_one({'short_code': short_code})
+    if not record:
+        return jsonify({'error': 'Short URL not found'}), 404
+    
+    stats = {
+        'short_code': record['short_code'],
+        'original_url': record['original_url'],
+        'created_at': record['created_at'],
+        'updated_at': record['updated_at'],
+        'access_count': record['access_count']
+    }
+    return jsonify(stats), 200
+
 
 
 
