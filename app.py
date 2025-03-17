@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, redirect
+from flask import Flask, request, jsonify, redirect, render_template
 from flask_pymongo import PyMongo
 from pymongo.errors import DuplicateKeyError
 from datetime import datetime
@@ -119,6 +119,10 @@ def get_url_stats(short_code):
     }
     return jsonify(stats), 200
 
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 
 
