@@ -94,6 +94,15 @@ def update_short_url(short_code):
     
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+    
+
+@app.route('/shorten/<short_code>', methods=['DELETE'])
+def delete_short_url(short_code):
+    result = db.urls.delete_one({'short_code': short_code})
+    if result.deleted_count == 0:
+        return jsonify({'error': 'Short URL not found'}), 404
+    return '', 204
+
 
 
 
