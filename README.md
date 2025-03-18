@@ -101,7 +101,7 @@ Curl Command:
 curl -X GET http://127.0.0.1:5000/shorten/7R8Nct/stats
 ```
 
-![ Curl](images/curl_response.png)  
+![Image](https://github.com/user-attachments/assets/9971a1a6-0cea-4efa-9d7c-532b1bee8a74)
 
 ## 🖥️ Frontend Overview
 The frontend is built using HTML and Bootstrap for styling.
@@ -112,7 +112,7 @@ Description:
 A simple form to submit a URL for shortening.
 Displays shortened URLs with options to redirect, update, or delete.
 
-![ UI](images/url_shortener.png)  
+![Image](https://github.com/user-attachments/assets/9fad6ebe-190b-4e40-8b6a-d438ce7276c1)
 
 
 ## 💡 Additional Notes
